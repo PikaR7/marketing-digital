@@ -1,8 +1,19 @@
-<!-- Loftware embed 3: Scattered point tools settle into an organized structure (wide format) -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chaos to order</title>
+<!-- Loftware embed 3: Scattered point tools settle into an organized structure (wide format), iframe-ready -->
+<style>
+html,body{margin:0;padding:0;background:transparent;overflow:hidden}
+</style>
+</head>
+<body>
 <div class="lw-ord">
 <style>
 .lw-ord{--lw-bg:transparent;--lw-cyan:#1FD4FF;--lw-orange:#F87D47;--lw-navy:#0E1D77;
-  background:var(--lw-bg);color:#fff;font-family:Roboto,"Segoe UI",Arial,sans-serif;padding:24px;box-sizing:border-box;container-type:inline-size;width:100%}
+  background:var(--lw-bg);color:#fff;font-family:Roboto,"Segoe UI",Arial,sans-serif;padding:0;box-sizing:border-box;container-type:inline-size;width:100%}
 .lw-ord *{box-sizing:border-box;margin:0}
 .lw-ord .lw-stage{position:relative;width:100%;aspect-ratio:16/6.5;border:1px solid rgba(255,255,255,.1);border-radius:18px;background:#0C1A63;overflow:hidden}
 .lw-ord .lw-frame{position:absolute;border:1.5px solid rgba(31,212,255,.55);border-radius:14px;opacity:0;transform:scale(1.04);
@@ -84,7 +95,6 @@
         timers.push(setTimeout(function(){root.classList.add('lw-done');},1100+tags.length*70));
       },1400));
     }
-    // start scattered (also the no-script look comes from the inline fallback below)
     layout();
     window.addEventListener('resize',layout);
     if('IntersectionObserver' in window){
@@ -94,7 +104,19 @@
         else if(!e.isIntersecting&&seen&&e.intersectionRatio===0){seen=false;clear();state='chaos';root.classList.remove('lw-settled','lw-done');tags.forEach(function(t){t.style.transitionDelay='0s';});layout();}
       });},{threshold:[0,.35]}).observe(root);
     }else play();
+
+    // Tell the parent page how tall this embed is, so the iframe can fit it exactly
+    function sendHeight(){
+      if(window.parent===window)return;
+      parent.postMessage({lwEmbedHeight:Math.ceil(root.getBoundingClientRect().height)},'*');
+    }
+    if('ResizeObserver' in window){new ResizeObserver(sendHeight).observe(root);}
+    window.addEventListener('load',sendHeight);
+    window.addEventListener('resize',sendHeight);
+    sendHeight();
   });
 })();
 </script>
 </div>
+</body>
+</html>
