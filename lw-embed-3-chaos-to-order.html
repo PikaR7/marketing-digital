@@ -1,0 +1,100 @@
+<!-- Loftware embed 3: Scattered point tools settle into an organized structure (wide format) -->
+<div class="lw-ord">
+<style>
+.lw-ord{--lw-bg:#0A1450;--lw-cyan:#1FD4FF;--lw-orange:#F87D47;--lw-navy:#0E1D77;
+  background:var(--lw-bg);color:#fff;font-family:Roboto,"Segoe UI",Arial,sans-serif;padding:24px;box-sizing:border-box;container-type:inline-size;width:100%}
+.lw-ord *{box-sizing:border-box;margin:0}
+.lw-ord .lw-stage{position:relative;width:100%;aspect-ratio:16/6.5;border:1px solid rgba(255,255,255,.1);border-radius:18px;background:#0C1A63;overflow:hidden}
+.lw-ord .lw-frame{position:absolute;border:1.5px solid rgba(31,212,255,.55);border-radius:14px;opacity:0;transform:scale(1.04);
+  transition:opacity .6s, transform .8s cubic-bezier(.2,.8,.2,1);box-shadow:0 0 24px rgba(31,212,255,.15) inset}
+.lw-ord.lw-done .lw-frame{opacity:1;transform:none}
+.lw-ord .lw-tag{position:absolute;transform:translate(-50%,-50%) rotate(var(--r,0deg));
+  transition:left 1.1s cubic-bezier(.2,.8,.2,1), top 1.1s cubic-bezier(.2,.8,.2,1), width 1.1s cubic-bezier(.2,.8,.2,1), transform 1.1s cubic-bezier(.2,.8,.2,1)}
+.lw-ord .lw-in{display:flex;align-items:center;gap:.7em;background:#0E1D77;border:1px solid rgba(255,255,255,.08);border-radius:8px;
+  padding:.95em 1.1em;font-size:clamp(10px,1.45cqw,16px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  box-shadow:0 8px 16px rgba(0,0,0,.35);transition:border-color .5s, box-shadow .5s}
+.lw-ord .lw-in i{flex:none;width:.55em;height:.55em;border-radius:50%;background:var(--lw-orange);transition:background .5s, box-shadow .5s}
+.lw-ord:not(.lw-settled) .lw-in{animation:lw-ord-float 3.4s ease-in-out infinite;animation-delay:var(--fd,0s)}
+@keyframes lw-ord-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.lw-ord.lw-done .lw-in{border-color:rgba(31,212,255,.35);box-shadow:0 4px 10px rgba(0,0,0,.25)}
+.lw-ord.lw-done .lw-in i{background:var(--lw-cyan);box-shadow:0 0 8px var(--lw-cyan)}
+.lw-ord .lw-sweep{position:absolute;inset:0;pointer-events:none;background:linear-gradient(100deg,transparent 40%,rgba(31,212,255,.12) 50%,transparent 60%);
+  transform:translateX(-100%);opacity:0}
+.lw-ord.lw-done .lw-sweep{animation:lw-ord-sweep 1.4s .3s ease-out forwards}
+@keyframes lw-ord-sweep{0%{opacity:1;transform:translateX(-100%)}100%{opacity:1;transform:translateX(100%)}}
+@container (max-width:600px){
+  .lw-ord .lw-stage{aspect-ratio:4/5}
+  .lw-ord .lw-in{font-size:11px;padding:.8em .9em}
+}
+@media (prefers-reduced-motion:reduce){.lw-ord *{animation:none !important;transition:none !important}}
+</style>
+<div class="lw-stage">
+  <div class="lw-frame"></div>
+  <div class="lw-sweep"></div>
+  <div class="lw-tag" style="left:16.25%;top:24.67%;width:19.5%"><div class="lw-in"><i></i>Desktop label app</div></div>
+  <div class="lw-tag" style="left:38.75%;top:24.67%;width:19.5%"><div class="lw-in"><i></i>Custody log</div></div>
+  <div class="lw-tag" style="left:61.25%;top:24.67%;width:19.5%"><div class="lw-in"><i></i>Print server</div></div>
+  <div class="lw-tag" style="left:83.75%;top:24.67%;width:19.5%"><div class="lw-in"><i></i>Artwork approvals</div></div>
+  <div class="lw-tag" style="left:16.25%;top:50.00%;width:19.5%"><div class="lw-in"><i></i>Spec spreadsheets</div></div>
+  <div class="lw-tag" style="left:38.75%;top:50.00%;width:19.5%"><div class="lw-in"><i></i>Supplier portal</div></div>
+  <div class="lw-tag" style="left:61.25%;top:50.00%;width:19.5%"><div class="lw-in"><i></i>QR generator</div></div>
+  <div class="lw-tag" style="left:83.75%;top:50.00%;width:19.5%"><div class="lw-in"><i></i>Serialization</div></div>
+  <div class="lw-tag" style="left:16.25%;top:75.33%;width:19.5%"><div class="lw-in"><i></i>RFID middleware</div></div>
+  <div class="lw-tag" style="left:38.75%;top:75.33%;width:19.5%"><div class="lw-in"><i></i>ERP plug-in</div></div>
+  <div class="lw-tag" style="left:61.25%;top:75.33%;width:19.5%"><div class="lw-in"><i></i>Site #4 templates</div></div>
+  <div class="lw-tag" style="left:83.75%;top:75.33%;width:19.5%"><div class="lw-in"><i></i>Compliance checks</div></div>
+</div>
+<script>
+(function(){
+  document.querySelectorAll('.lw-ord:not([data-lw])').forEach(function(root){
+    root.setAttribute('data-lw','1');
+    var stage=root.querySelector('.lw-stage'),frame=root.querySelector('.lw-frame');
+    var tags=[].slice.call(root.querySelectorAll('.lw-tag'));
+    var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // scattered layout: [x%, y%, rotation]
+    var chaos=[[18,15,-5],[47,11,7],[78,13,4],[40,33,-2],[82,39,7],[17,47,3],[56,52,-8],[80,66,2],[30,70,-4],[54,82,5],[17,88,2],[82,88,-4]];
+    var state='chaos',timers=[];
+    function narrow(){return stage.clientWidth<560;}
+    function layout(){
+      var n=narrow(),cols=n?2:4,rows=Math.ceil(tags.length/cols),padX=n?6:5,padY=n?6:12;
+      var cw=(100-2*padX)/cols,ch=(100-2*padY)/rows;
+      frame.style.left=(padX-2)+'%';frame.style.right=(padX-2)+'%';frame.style.top=(padY-(n?2.5:5))+'%';frame.style.bottom=(padY-(n?2.5:5))+'%';
+      tags.forEach(function(t,i){
+        var x,y,r,w;
+        if(state==='chaos'){
+          var c=chaos[i];x=n?50+(c[0]-50)*0.6:c[0];y=c[1];r=c[2];w=n?52:22;
+        }else{
+          x=padX+(i%cols+0.5)*cw;y=padY+(Math.floor(i/cols)+0.5)*ch;r=0;w=cw-(n?4:3);
+        }
+        t.style.left=x+'%';t.style.top=y+'%';t.style.width=w+'%';t.style.setProperty('--r',r+'deg');
+        t.querySelector('.lw-in').style.setProperty('--fd',(-i*0.37)+'s');
+      });
+    }
+    function clear(){timers.forEach(clearTimeout);timers=[];}
+    function play(){
+      clear();
+      if(reduce){state='grid';root.classList.add('lw-settled','lw-done');layout();return;}
+      state='chaos';root.classList.remove('lw-settled','lw-done');
+      tags.forEach(function(t){t.style.transitionDelay='0s';});
+      layout();
+      timers.push(setTimeout(function(){
+        state='grid';root.classList.add('lw-settled');
+        tags.forEach(function(t,i){t.style.transitionDelay=(i*0.07)+'s';});
+        layout();
+        timers.push(setTimeout(function(){root.classList.add('lw-done');},1100+tags.length*70));
+      },1400));
+    }
+    // start scattered (also the no-script look comes from the inline fallback below)
+    layout();
+    window.addEventListener('resize',layout);
+    if('IntersectionObserver' in window){
+      var seen=false;
+      new IntersectionObserver(function(es){es.forEach(function(e){
+        if(e.isIntersecting&&e.intersectionRatio>=.3&&!seen){seen=true;play();}
+        else if(!e.isIntersecting&&seen&&e.intersectionRatio===0){seen=false;clear();state='chaos';root.classList.remove('lw-settled','lw-done');tags.forEach(function(t){t.style.transitionDelay='0s';});layout();}
+      });},{threshold:[0,.35]}).observe(root);
+    }else play();
+  });
+})();
+</script>
+</div>
