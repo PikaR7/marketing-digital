@@ -1,8 +1,19 @@
-<!-- Loftware embed 1: End-to-end product identification (white dot travels left to right) -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>End-to-end identification</title>
+<!-- Loftware embed 1: End-to-end product identification (white dot travels left to right), iframe-ready -->
+<style>
+html,body{margin:0;padding:0;background:transparent;overflow:hidden}
+</style>
+</head>
+<body>
 <div class="lw-e2e">
 <style>
-.lw-e2e{--lw-bg:#0A1450;--lw-cyan:#1FD4FF;--lw-blue:#0072EB;--lw-orange:#F87D47;--lw-navy:#0E1D77;
-  background:var(--lw-bg);color:#fff;font-family:Roboto,"Segoe UI",Arial,sans-serif;padding:24px;box-sizing:border-box;container-type:inline-size;width:100%}
+.lw-e2e{--lw-bg:transparent;--lw-cyan:#1FD4FF;--lw-blue:#0072EB;--lw-orange:#F87D47;--lw-navy:#0E1D77;
+  background:var(--lw-bg);color:#fff;font-family:Roboto,"Segoe UI",Arial,sans-serif;padding:0;box-sizing:border-box;container-type:inline-size;width:100%}
 .lw-e2e *{box-sizing:border-box;margin:0}
 .lw-e2e .lw-card{border:1px solid rgba(255,255,255,.12);border-radius:18px;background:#0C1A63;padding:clamp(18px,3.2cqw,34px) clamp(18px,3.4cqw,36px)}
 .lw-e2e .lw-head{display:flex;justify-content:space-between;gap:12px;font-size:clamp(10px,1.35cqw,14px);font-weight:700;letter-spacing:.22em;text-transform:uppercase}
@@ -53,4 +64,20 @@
   </div>
   <div class="lw-scale"><span>SMB</span><div class="lw-bar"></div><span>GLOBAL ENTERPRISE</span></div>
 </div>
+<script>
+(function(){
+  // Tell the parent page how tall this embed is, so the iframe can fit it exactly
+  var root=document.querySelector('.lw-e2e');
+  function sendHeight(){
+    if(window.parent===window)return;
+    parent.postMessage({lwEmbedHeight:Math.ceil(root.getBoundingClientRect().height)},'*');
+  }
+  if('ResizeObserver' in window){new ResizeObserver(sendHeight).observe(root);}
+  window.addEventListener('load',sendHeight);
+  window.addEventListener('resize',sendHeight);
+  sendHeight();
+})();
+</script>
 </div>
+</body>
+</html>
